@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tải lên file âm thanh</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-8 flex flex-col items-center min-h-screen">
+  <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh (.m4a hoặc khác)</h1>
+
+  <form action="/upload" method="POST" enctype="multipart/form-data" class="flex flex-col items-center space-y-4 w-full max-w-md">
+    <input type="file" name="audio_file" accept=".m4a,audio/*" required class="block w-full text-sm text-gray-900">
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Chuyển thành văn bản</button>
+  </form>
+
+  <a href="/" class="mt-6 text-blue-600 hover:underline">⬅️ Quay lại trang chính</a>
+</body>
+</html>

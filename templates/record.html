@@ -2,34 +2,26 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Chuyển giọng nói thành văn bản</title>
+  <title>Ghi âm giọng nói</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800 flex flex-col items-center p-8 min-h-screen">
-
-  <h2 class="text-2xl font-bold mb-4">🎙️ Ghi âm giọng nói tiếng Việt</h2>
+<body class="bg-gray-100 text-gray-900 p-8 flex flex-col items-center min-h-screen">
+  <h1 class="text-2xl font-bold mb-4">🎧 Ghi âm trực tiếp (giới hạn 60 giây)</h1>
 
   <div class="space-x-4 mb-4">
-    <button id="recordBtn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Bắt đầu ghi âm</button>
-    <button id="stopBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700" disabled>Dừng ghi âm</button>
+    <button id="recordBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Bắt đầu</button>
+    <button id="stopBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" disabled>Dừng</button>
   </div>
 
   <p id="timer" class="mb-2 text-lg">Thời gian ghi: 0s</p>
-  <progress id="progressBar" value="0" max="60" class="w-80 mb-6 h-3 rounded overflow-hidden"></progress>
+  <progress id="progressBar" value="0" max="60" class="w-80 h-3 mb-6"></progress>
 
-  <form id="uploadForm" method="POST" enctype="multipart/form-data">
+  <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/upload">
     <input type="file" name="audio_file" id="audioInput" hidden>
     <button type="submit" id="submitBtn" hidden>Gửi</button>
   </form>
 
-  <form action="/" method="POST" enctype="multipart/form-data" class="mb-8 flex flex-col items-center space-y-4">
-    <label class="block text-lg font-medium">📁 Tải lên file âm thanh (.m4a):</label>
-    <input type="file" name="audio_file" accept=".m4a,audio/*" class="block w-full text-sm text-gray-900" required>
-    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-      Chuyển thành văn bản
-    </button>
-  </form>
-  
+  <a href="/" class="mt-6 text-blue-600 hover:underline">⬅️ Quay lại trang chính</a>
 
   <script>
     let mediaRecorder;
@@ -45,24 +37,16 @@
       mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
       mediaRecorder.onstop = () => {
         clearInterval(timerInterval);
-        document.getElementById("recordBtn").disabled = false;
-        document.getElementById("stopBtn").disabled = true;
-
         const blob = new Blob(audioChunks, { type: "audio/webm" });
         const file = new File([blob], "recording.webm");
 
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
         document.getElementById("audioInput").files = dataTransfer.files;
-
         document.getElementById("submitBtn").click();
       };
 
       mediaRecorder.start();
-      document.getElementById("recordBtn").disabled = true;
-      document.getElementById("stopBtn").disabled = false;
-
-      // Reset timer
       seconds = 0;
       document.getElementById("timer").textContent = "Thời gian ghi: 0s";
       document.getElementById("progressBar").value = 0;
@@ -74,8 +58,13 @@
 
         if (seconds >= 60) {
           mediaRecorder.stop();
+          document.getElementById("recordBtn").disabled = false;
+          document.getElementById("stopBtn").disabled = true;
         }
       }, 1000);
+
+      document.getElementById("recordBtn").disabled = true;
+      document.getElementById("stopBtn").disabled = false;
     };
 
     document.getElementById("stopBtn").onclick = () => {
