@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Ghi âm và chuyển giọng nói</title>
+</head>
+<body>
+  <h2>Ghi âm giọng nói</h2>
+  <button id="recordBtn">🎙️ Bắt đầu ghi âm</button>
+  <button id="stopBtn" disabled>⏹️ Dừng</button>
+
+  <form id="uploadForm" method="POST" enctype="multipart/form-data">
+    <input type="file" name="audio_file" id="audioInput" hidden>
+    <button type="submit" id="submitBtn" hidden>Gửi</button>
+  </form>
+
+  <script>
+    let mediaRecorder, audioChunks = [];
+
+    document.getElementById("recordBtn").onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        // const blob = new Blob(audioChunks, { type: "audio/webm" });
+        // const file = new File([blob], "recording.webm");
+        const blob = new Blob(audioChunks, { type: "audio/wav" });
+        const file = new File([blob], "recording.wav");
+
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        document.getElementById("audioInput").files = dataTransfer.files;
+
+        document.getElementById("submitBtn").click();
+      };
+
+      mediaRecorder.start();
+      document.getElementById("recordBtn").disabled = true;
+      document.getElementById("stopBtn").disabled = false;
+    };
+
+    document.getElementById("stopBtn").onclick = () => {
+      mediaRecorder.stop();
+      document.getElementById("recordBtn").disabled = false;
+      document.getElementById("stopBtn").disabled = true;
+    };
+  </script>
+</body>
+</html>
