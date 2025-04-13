@@ -3,7 +3,7 @@
 > Phiên bản V1.1: Cải tiến để tải lên và xử lý các tệp âm thanh m4a có thời lượng tối đa 20 phút
 
 
-<b>Hiện tại bạn có thể sử dụng phiên bản trực tuyến tại: https://speech-to-text-5567.onrender.com/</b><br>
+<b>Hiện tại bạn có thể sử dụng phiên bản trực tuyến tại: https://speech-to-text-5567.onrender.com/</b> (Lưu ý: đây là đường link cho <b> mục đích thử nghiệm</b>, không dùng cho production vì không đảm bảo tính ổn định về mặt chịu tải. Khuyến khích tải về và tự triển khai trên máy chủ riêng hoặc test trên máy cá nhân)<br>
 Và bạn cũng có thể đọc <a href="https://hackmd.io/@trhgtung/speech-to-text-trhgtung" target="_blank">tài liệu hướng dẫn ngay tại đây</a><br>
 
 Ứng dụng này giúp bạn:
