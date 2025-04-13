@@ -9,60 +9,65 @@ UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# def convert_audio(file_path):
-#     recognizer = sr.Recognizer()
-
-#     try:
-#         audio = AudioSegment.from_file(file_path)
-
-#         if len(audio) > 60000:
-#             audio = audio[:60000]
-
-#         wav_path = file_path.rsplit(".", 1)[0] + ".wav"
-#         audio.export(wav_path, format="wav")
-
-#         with sr.AudioFile(wav_path) as source:
-#             audio_data = recognizer.record(source)
-
-#             try:
-#                 text = recognizer.recognize_google(audio_data, language="vi-VN")
-#                 return text
-#             except sr.UnknownValueError:
-#                 return "Không thể nhận dạng giọng nói."
-#             except sr.RequestError:
-#                 return "Lỗi kết nối tới dịch vụ nhận dạng."
-#     except Exception as e:
-#         return f"Lỗi khi xử lý âm thanh: {e}"
-
 def convert_audio(file_path):
     recognizer = sr.Recognizer()
     try:
         audio = AudioSegment.from_file(file_path)
-        chunk_length_ms = 60000  # 60 giây
-        chunks = [audio[i:i + chunk_length_ms] for i in range(0, len(audio), chunk_length_ms)]
+        wav_path = file_path.rsplit(".", 1)[0] + "_final.wav"
+        audio.export(wav_path, format="wav")
 
         final_text = ""
+        with sr.AudioFile(wav_path) as source:
+            duration = int(audio.duration_seconds)
+            offset = 0
+            chunk_duration = 60
 
-        for index, chunk in enumerate(chunks):
-            chunk_path = f"{file_path.rsplit('.', 1)[0]}_chunk{index}.wav"
-            chunk.export(chunk_path, format="wav")
-
-            with sr.AudioFile(chunk_path) as source:
-                audio_data = recognizer.record(source)
+            while offset < duration:
                 try:
+                    audio_data = recognizer.record(source, duration=chunk_duration)
                     text = recognizer.recognize_google(audio_data, language="vi-VN")
                     final_text += text + " "
                 except sr.UnknownValueError:
                     final_text += "[Không nhận diện được đoạn này] "
                 except sr.RequestError:
                     return "Lỗi kết nối tới dịch vụ nhận dạng."
+                offset += chunk_duration
 
-            os.remove(chunk_path)
-
+        os.remove(wav_path)
         return final_text.strip()
 
     except Exception as e:
         return f"Lỗi khi xử lý âm thanh: {e}"
+
+# def convert_audio(file_path):
+#     recognizer = sr.Recognizer()
+#     try:
+#         audio = AudioSegment.from_file(file_path)
+#         chunk_length_ms = 60000  # 60 giây
+#         chunks = [audio[i:i + chunk_length_ms] for i in range(0, len(audio), chunk_length_ms)]
+
+#         final_text = ""
+
+#         for index, chunk in enumerate(chunks):
+#             chunk_path = f"{file_path.rsplit('.', 1)[0]}_chunk{index}.wav"
+#             chunk.export(chunk_path, format="wav")
+
+#             with sr.AudioFile(chunk_path) as source:
+#                 audio_data = recognizer.record(source)
+#                 try:
+#                     text = recognizer.recognize_google(audio_data, language="vi-VN")
+#                     final_text += text + " "
+#                 except sr.UnknownValueError:
+#                     final_text += "[Không nhận diện được đoạn này] "
+#                 except sr.RequestError:
+#                     return "Lỗi kết nối tới dịch vụ nhận dạng."
+
+#             os.remove(chunk_path)
+
+#         return final_text.strip()
+
+#     except Exception as e:
+#         return f"Lỗi khi xử lý âm thanh: {e}"
 
 @app.route("/")
 def home():

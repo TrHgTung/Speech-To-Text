@@ -1,6 +1,9 @@
 # 🗣️ Ứng dụng Chuyển Giọng Nói Thành Văn Bản (Tiếng Việt)
 
-Sử dụng phiên bản trực tuyến tại: https://speech-to-text-5567.onrender.com/
+> Phiên bản V1.1: Cải tiến để tải lên và xử lý các tệp âm thanh m4a có thời lượng tối đa 20 phút
+
+
+<b>Hiện tại bạn có thể sử dụng phiên bản trực tuyến tại: https://speech-to-text-5567.onrender.com/</b>
 
 Ứng dụng này giúp bạn:
 - Ghi âm bằng micro trực tiếp trên trình duyệt
@@ -19,7 +22,7 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 3. Khi cài đặt:
    - ✅ Tích vào ô **Add Python to PATH**
    - Nhấn **Install Now**
-4. Mở một cửa sổ Command Prompt mới, nhập lệnh `python --version` -> Enter : nếu Command Prompt phản hồi bạn với nội dung "Python 3.11" thì bạn đã cài đặt đúng phiên bản của Python (cài Python thành công)
+4. Mở một cửa sổ Command Prompt mới, nhập lệnh `python3 --version` -> Enter : nếu Command Prompt phản hồi bạn với nội dung "Python 3.11" thì bạn đã cài đặt đúng phiên bản của Python (cài Python thành công)
 5. Nếu đã cài đúng, bạn có thể đóng cửa sổ Command Prompt này lại. Nếu chưa cài được, thì cài lại.
 
 ---
@@ -37,8 +40,8 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 - Mở Windows Explorer (truy cập tới thư mục chứa source code)
 - Trên thanh tìm kiếm, xóa sạch địa chỉ và nhập cmd và nhấn Enter
 - Ngay lập tức, một cửa sổ dòng lệnh xuất hiện, nhập lần lượt các lệnh sau (tức là sau khi nhập từng câu lệnh rồi Enter, đợi hiển thị kết quả rồi mới tiếp tục tới câu lệnh kế tiếp)
-    + `python --version` -> Enter : nếu hiển thị Python 3.11 thì bạn đã cài đặt đúng phiên bản của Python
-    + `python -m venv venv` -> Enter: đợi một lúc để python tự tạo môi trường ảo trong thư mục source code
+    + `python3 --version` -> Enter : nếu hiển thị Python 3.11 thì bạn đã cài đặt đúng phiên bản của Python
+    + `python3 -m venv venv` -> Enter: đợi một lúc để python tự tạo môi trường ảo trong thư mục source code
     + `venv\Scripts\activate` -> Enter: dùng để kích hoạt chế độ môi trường ảo của Pythong trong thư mục source code. Kể từ giờ, mọi câu lệnh trong cửa sổ dòng lệnh đều thực thi trong môi trường ảo của Python. Bạn dễ dàng nhận ra khi có tiền tố (venv) nằm trước câu lệnh
     + `pip install -r requirements.txt`-> Enter: Dùng để cài đặt toàn bộ thư viện cần thiết để source code có thể hoạt động được. Quá trình cài đặt này mất khá nhiều thời gian (trong khoảng 5 - 10 phút tùy kết nối mạng và cấu hình phần cứng máy tính)
 
@@ -64,12 +67,29 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 
 ## 🧩 BƯỚC 4: Khởi chạy ứng dụng
 - Quay lại cửa sổ Command Prompt ban đầu (hãy đảm bảo vẫn còn môi trường ảo - bằng cách nhìn thấy tiền tố (venv) ở đằng trước câu lệnh)
-- Nhập lệnh: `python app.py` -> Enter: đợi một lúc và ứng dụng sẽ chạy ở địa chỉ http://127.0.0.1:10000
-- Bạn mở trình duyệt bất kỳ, truy cập: http://127.0.0.1:5000 để sử dụng các tính năng
+- Nhập lệnh: `python3 app.py` -> Enter: đợi một lúc và ứng dụng sẽ chạy ở địa chỉ http://127.0.0.1:10000
+- Bạn mở trình duyệt bất kỳ, truy cập: http://127.0.0.1:10000 để sử dụng các tính năng
 - Trong lần đầu chạy, hãy cấp quyền truy cập micro và quyền truy cập tệp tin (nếu bạn vô tình chặn)
 
-### Các thư viện
+## 🧩 Sau này mỗi lần muốn chạy ứng dụng ở máy tính cá nhân (local) - bạn chỉ cần:
+- Truy cập đến thư mục chứa source code, tại đây mở một cửa sổ Command Prompt mới
+- Kích hoạt môi trường ảo: trong cửa sổ Command Prompt hãy nhập lệnh `venv\Scripts\activate` -> Enter : sau đó môi trường ảo sẽ được kích họat - bạn kiểm tra bằng cách nhìn thấy tiền tố (venv) ở đằng trước câu lệnh.
+- Nhập lệnh: `python3 app.py` -> Enter: đợi một lúc và ứng dụng sẽ chạy ở địa chỉ http://127.0.0.1:10000
+- Bạn mở trình duyệt bất kỳ, truy cập: http://127.0.0.1:10000 để sử dụng các tính năng
+- Trong trường hợp mất quyền truy cập micro trên trình duyệt, hãy cấp quyền truy cập micro
+
+### Khả năng dùng chung nhiều thiết bị
+** <b>Yêu cầu</b>: Các thiết bị muốn sử dụng chung tính năng, phải có cùng kết nối Internet với máy tính của bạn (để thiết lập thành một mạng cục bộ - LAN) . Và đồng thời trên máy tính của bạn (tạm gọi là máy chủ) phải đang chạy source (tức đã chạy lệnh `python3 app.py` và luôn chạy liên tục, không dừng / không sleep / không shutdown)
+- Đối với các máy đã có cùng kết nối wifi với máy tính của bạn:
+    - Trên các thiết bị dùng chung (smartphone, tablet, PC khác): truy cập đến địa chỉ: `http://192.168.1.10:10000` (không cần gõ `http://` -- Và nhắc một lần nữa: phải chung wifi với máy chủ, và trên máy chủ phải đang chạy source)
+    - Tính năng trên các thiết bị dùng chung vẫn tương tự như trên máy chủ
+
+- Trong trường hợp trên máy chủ, bạn đã tắt Command Prompt / shutdown hoặc Sleep máy: việc này đồng nghĩa với đã tắt source, thì tính năng sẽ không còn khả dụng trên máy chủ lẫn các thiết bị dùng chung.
+
+### Các thư viện được sử dụng
 - Flask, pydub, SpeechRecognition, TailwindCSS
 - Được triển khai với Render (https://render.com/ - Cloud Application Flatform - Render)
 
-> Hoàng Tùng | Ứng dụng chuyển đổi giọng nói thành văn bản | Lần cập nhật cuối 12/4/2025
+> Hoàng Tùng | Ứng dụng chuyển đổi giọng nói thành văn bản | Lần cập nhật cuối 13/4/2025
+
+> Dựa trên đơn yêu cầu của X** P*** Studio (giấu tên)

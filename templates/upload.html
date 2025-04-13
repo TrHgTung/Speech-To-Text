@@ -47,13 +47,13 @@
           </div>
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+          <!-- <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only">View notifications</span>
             <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
             </svg>
-          </button>
+          </button> -->
   
           <!-- Profile dropdown -->
           <div class="relative ml-3">
@@ -88,14 +88,22 @@
   </nav>
 
   <div class="bg-gray-100 text-gray-900 p-8 flex flex-col items-center min-h-screen">
-    <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh (.m4a hoặc khác)</h1>
+    <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh (định dạng .m4a - định dạng tệp ghi âm trên các thiết bị iOS)</h1>
 
     <form action="/upload" method="POST" enctype="multipart/form-data" class="flex flex-col items-center space-y-4 w-full max-w-md">
+      <div class="mb-3">
+        <p><b>Bước 1: </b>Chọn và tải lên tệp m4a từ thiết bị của bạn</p>
+      </div>
       <input type="file" name="audio_file" accept=".m4a,audio/*" required class="block w-full text-sm text-gray-900">
+      <div class="mb-3">
+        <p><b>Bước 2: </b>Nhấn nút "Chuyển thành văn bản" để bắt đầu xử lý. Sau đó bạn sẽ nhận được file nội dung văn bản (*.txt)</p>
+      </div>
       <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Chuyển thành văn bản</button>
     </form>
 
     <a href="#" class="mt-6 text-blue-600 hover:underline" onclick="history.back();">⬅️ Quay lại trước đó</a>
+    <a href="#" class="mt-6 text-dark-600 hover:underline" onclick="location.reload();">Thử lại</button>
   </div>
+  
 </body>
 </html>
