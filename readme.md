@@ -8,18 +8,20 @@ Và bạn cũng có thể đọc <a href="https://hackmd.io/@trhgtung/speech-to-
 
 Ứng dụng này giúp bạn:
 - Ghi âm bằng micro trực tiếp trên trình duyệt
-- Tải lên file âm thanh `.m4a` (ghi âm từ iPhone)
+- Tải lên file âm thanh `.m4a` (ghi âm từ iPhone / iPad)
 - Nhận kết quả văn bản Tiếng Việt
 - Tải về file `.txt` kết quả
 
 ---
 Dưới đây là hướng dẫn dành cho máy tính Windows:
-(Nếu bất đắc dĩ có lỗi chặn xảy ra từ phía Windows Defender, hãy tắt Windows Defender / Windows Security hoặc các trình AntiVirus đi)
+(Nếu bất đắc dĩ có lỗi chặn xảy ra từ phía Windows Defender, hãy tắt Windows Defender / Windows Security hoặc các trình Anti-virus đi)
 
 ## 🧩 BƯỚC 1: Cài đặt Python
 
-1. Truy cập: https://www.python.org/downloads/
-2. Tải về **Python 3.11**
+(Trong trường hợp máy bạn đã cài đặt sẵn Python phiên bản 3.11, thì bỏ qua bước này. Cách kiểm tra máy đã cài sẵn Python 3.11 hay chưa: Mở cửa sổ Command Prompt -> nhập `python3 --version` -> Enter -> Nếu màn hình hiển thị phiên bản Python 3.11 thì máy đã cài sẵn Python 3.11. Nếu chưa cài đặt thì màn hình sẽ hiển thị rằng Python là một lệnh mà Windows không hiểu được, và bạn phải thực hiện Bước 1 này)
+
+1. Mở trình duyệt, truy cập: https://www.python.org/downloads/
+2. Tải về **Python 3.11 dành cho Windows** theo hướng dẫn của Website
 3. Khi cài đặt:
    - ✅ Tích vào ô **Add Python to PATH**
    - Nhấn **Install Now**
@@ -82,15 +84,31 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 ### Khả năng dùng chung nhiều thiết bị
 ** <b>Yêu cầu</b>: Các thiết bị muốn sử dụng chung tính năng, phải có cùng kết nối Internet với máy tính của bạn (để thiết lập thành một mạng cục bộ - LAN) . Và đồng thời trên máy tính của bạn (tạm gọi là máy chủ) phải đang chạy source (tức đã chạy lệnh `python3 app.py` và luôn chạy liên tục, không dừng / không sleep / không shutdown)
 - Đối với các máy đã có cùng kết nối wifi với máy tính của bạn:
-    - Trên các thiết bị dùng chung (smartphone, tablet, PC khác): truy cập đến địa chỉ: `http://192.168.1.10:10000` (không cần gõ `http://` -- Và nhắc một lần nữa: phải chung wifi với máy chủ, và trên máy chủ phải đang chạy source)
-    - Tính năng trên các thiết bị dùng chung vẫn tương tự như trên máy chủ
+    - Đầu tiên: trên máy chủ phải đảm bảo đã thiết lập các môi trường cần thiết và đang chạy lệnh `python3 app.py`. Trên Command Prompt của máy chủ đang chạy lệnh, phải đang hiển thị các thông tin kiểu kiểu như sau:
+    
+    Command Prompt / Terminal:
+    > (venv) hoangtung@hoangtung-ubuntu:~/speech_to_text_project$ python3 app.py 
+    > * Serving Flask app 'app'
+    > * Debug mode: off
+    > WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+    > * Running on all addresses (0.0.0.0)
+    > * Running on http://127.0.0.1:10000
+    > * Running on http://192.168.1.10:10000
+    > Press CTRL+C to quit
+    - Bạn nhìn thấy dòng `Running on http://192.168.1.10:10000` chứ? Đây chính là địa chỉ dành cho các thiết bị khác muốn dùng chung tính năng của source code. Tùy vào kết nối của máy chủ trong hệ thống mạng nên địa chỉ này sẽ khác nhau, nhưng cùng chung một kiểu là `http://192.168.1.xxx:10000` (với xxx trải từ 1 đến 255 tùy máy chủ)
+    - Trên các thiết bị dùng chung (smartphone, tablet, PC khác): truy cập đến địa chỉ: `http://192.168.1.xxx:10000` - Ví dụ của tôi: `http://192.168.1.10:10000` (Và nhắc một lần nữa: phải chung wifi với máy chủ, và trên máy chủ phải đang chạy source)
+    - Tính năng trên các thiết bị dùng chung vẫn tương tự các tính năng như trên máy chủ: gồm tải lên tệp âm thanh và ghi âm trực tiếp.
 
-- Trong trường hợp trên máy chủ, bạn đã tắt Command Prompt / shutdown hoặc Sleep máy: việc này đồng nghĩa với đã tắt source, thì tính năng sẽ không còn khả dụng trên máy chủ lẫn các thiết bị dùng chung.
+- Trong trường hợp trên máy chủ, bạn đã tắt cửa sổ Command Prompt chạy source / shutdown máy hoặc Sleep máy: thì việc này đồng nghĩa với bạn đã tắt source, tính năng sẽ không còn khả dụng trên máy chủ lẫn các thiết bị dùng chung.
 
 ### Các thư viện được sử dụng
 - Flask, pydub, SpeechRecognition, TailwindCSS
 - Được triển khai với Render (https://render.com/ - Cloud Application Flatform - Render)
 
-> Hoàng Tùng | Ứng dụng chuyển đổi giọng nói thành văn bản | Lần cập nhật cuối 13/4/2025
+### Khác
+- Nếu có thắc mắc gì với Repository này, hãy để lại ở phần Issues (GitHub). Rất mong nhận được sự đóng góp thêm của các bạn tại phần Pull requests (GitHub)
+- Repository này đã được đồng ý để mở công khai.
+
+> Hoàng Tùng (TrHgTung) | Ứng dụng chuyển đổi giọng nói thành văn bản | Lần cập nhật cuối 13/4/2025
 
 > Dựa trên đơn yêu cầu của X** P*** Studio (giấu tên)
