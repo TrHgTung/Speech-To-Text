@@ -106,6 +106,12 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 - Được triển khai với Render (https://render.com/ - Cloud Application Flatform - Render)
 
 ### Khác
+- Hiện tại đã có thể chạy với Docker:
+    + Cài Docker
+    + Chạy docker build lần đầu: docker build -t speech-to-text-app .
+    + Chạy ứng dụng: docker run -p 10000:10000 speech-to-text-app
+    + Sau khi chạy, ứng dụng sẽ chạy trên `http://127.0.0.1:10000` và trên các thiết bị chung mạng wifi
+
 - Nếu có thắc mắc gì với Repository này, hãy để lại ở phần Issues (GitHub). Rất mong nhận được sự đóng góp thêm của các bạn tại phần Pull requests (GitHub)
 - Repository này đã được đồng ý để mở công khai.
 
