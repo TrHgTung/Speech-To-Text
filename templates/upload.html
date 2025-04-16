@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-    <nav class="bg-gray-800">
+    <nav class="sticky top-0 z-50 bg-gray-800">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -61,7 +61,8 @@
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
                 <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" >Speech-To-Text</a>
-                <a href="/upload" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Tải lên âm thanh</a>
+                <a href="/upload" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Tải lên file âm thanh thông thường</a>
+                <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh có nhiều khoảng lặng</a>
                 <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
                 <a href="https://hoang-tung-site.vercel.app/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
               </div>
@@ -74,6 +75,7 @@
         <div class="space-y-1 px-2 pt-2 pb-3">
           <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" >Speech-To-Text</a>
           <a href="/upload" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Tải lên âm thanh</a>
+          <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh có nhiều khoảng lặng</a>
           <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
           <a href="https://hoang-tung-site.vercel.app/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
         </div>
@@ -84,7 +86,8 @@
       <a href="#" class="mt-6 text-blue-600 hover:underline" onclick="history.back();">⬅️ Quay lại trước đó</a>
     </div>
     <div class="bg-gray-100 text-gray-900 p-8 flex flex-col items-center min-h-screen">
-      <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh (định dạng .m4a - định dạng tệp ghi âm trên các thiết bị iOS)</h1>
+      <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh </h1>
+      <h2 class="text-xl font-bold mb-6">Khuyến nghị file định dạng .m4a - file ghi âm trên các thiết bị iOS</h2>
 
       <form action="/upload" method="POST" enctype="multipart/form-data" id="upload-form" class="flex flex-col items-center space-y-4 w-full max-w-md">
         <div class="mb-3">
@@ -92,7 +95,7 @@
         </div>
         <input type="file" name="audio_file" accept=".m4a,.wav,.mp3" class="block w-full text-sm text-gray-900" required>
         <div class="mb-3">
-          <p><b>Bước 2: </b>Nhấn nút "Chuyển thành văn bản" để bắt đầu xử lý. Sau đó bạn sẽ nhận được file nội dung văn bản (*.txt)</p>
+          <p><b>Bước 2: </b>Nhấn nút <b>Chuyển thành văn bản</b> để bắt đầu xử lý. Sau đó bạn sẽ nhận được file nội dung văn bản (*.txt)</p>
         </div>
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Chuyển thành văn bản</button>
       </form>
@@ -102,10 +105,13 @@
       </div>
 
       <div id="message"></div>
-      <a id="result-link" class="mt-6 text-green-600 hover:underline" href="#" download>Tải file kết quả</a>
+      <a id="result-link" class="mt-6 text-green-600 hover:underline" href="#" download>Download file kết quả</a>
 
-      <a href="#" class="mt-6 text-dark-600 hover:underline" onclick="location.reload();">Thử lại</button>
-    </div>
+      <a href="#" class="mt-6 text-dark-600 hover:underline" onclick="location.reload();">Thử lại</a>
+    <div>
+      <p>Trang này sử dụng kỹ thuật cắt file audio gốc thành từng file nhỏ mỗi 40 giây, sau đó gửi lên API để xử lý âm thanh, và cuối cùng hoàn chỉnh thành file text. <b>Do đó, trang này khuyến nghị file audio không có nhiều khoảng im lặng</b></p>
+    </div> 
+  </div>
   <script>
     const form = document.getElementById("upload-form");
     const progressContainer = document.getElementById("progress-container");

@@ -108,9 +108,10 @@ Dưới đây là hướng dẫn dành cho máy tính Windows:
 ### Khác
 - Hiện tại đã có thể chạy với Docker:
     + Cài Docker
-    + Chạy docker build lần đầu: docker build -t speech-to-text-app .
-    + Chạy ứng dụng: docker run -p 10000:10000 speech-to-text-app
-    + Sau khi chạy, ứng dụng sẽ chạy trên `http://127.0.0.1:10000` và trên các thiết bị chung mạng wifi
+    + Chạy docker build lần đầu: `docker build -t speech-to-text-app .` -> Enter: để bắt đầu build và đóng gói
+    + Chạy ứng dụng: `docker run -p 10000:10000 speech-to-text-app` -> Enter: để chạy ứng dụng
+    + Sau này mỗi lần muốn khởi động ứng dụng, thì chỉ cần chạy lệnh `docker run -p 10000:10000 speech-to-text-app` để chạy ứng dụng trên địa chỉ `http://127.0.0.1:10000`
+    + Sau khi chạy, ứng dụng sẽ chạy trên địa chỉ `http://127.0.0.1:10000` và trên các thiết bị chung mạng wifi (Xem trong log)
 
 - Nếu có thắc mắc gì với Repository này, hãy để lại ở phần Issues (GitHub). Rất mong nhận được sự đóng góp thêm của các bạn tại phần Pull requests (GitHub)
 - Repository này đã được đồng ý để mở công khai.

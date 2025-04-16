@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chuyển âm thanh theo khoảng lặng</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .progress {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 8px;
+        margin-top: 1rem;
+        overflow: hidden;
+        display: none;
+    }
+    .progress-bar {
+        height: 20px;
+        width: 0%;
+        background-color: #4caf50;
+        transition: width 0.4s ease;
+    }
+    #result-link {
+        margin-top: 1rem;
+        display: none;
+    }
+    #message {
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-gray-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex shrink-0 items-center">
+            <a href="https://wibu-team.free.nf/hoangtungblog.php" target="_blank"><img class="h-8 w-auto" src="https://hoang-tung-site.vercel.app/favicon.png" alt="Hoàng Tùng Blog Site"></a>
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Speech-To-Text</a>
+              <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh thông thường</a>
+              <a href="/upload-silence" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Tải lên file âm thanh có nhiều khoảng lặng</a>
+              <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
+              <a href="https://hoang-tung-site.vercel.app/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pt-2 pb-3">
+        <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Speech-To-Text</a>
+        <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên âm thanh</a>
+        <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
+        <a href="/upload-silence" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Cắt theo khoảng lặng</a>
+        <a href="https://hoang-tung-site.vercel.app/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="mt-4 mb-3">
+    <a href="#" class="mt-6 text-blue-600 hover:underline" onclick="history.back();">⬅️ Quay lại trước đó</a>
+  </div>
+
+  <div class="bg-gray-100 text-gray-900 p-8 flex flex-col items-center min-h-screen">
+    <h1 class="text-2xl font-bold mb-6">📁 Tải lên file âm thanh </h1>
+    <h2 class="text-xl font-bold mb-6">Khuyến nghị file định dạng .m4a - file ghi âm trên các thiết bị iOS</h2>
+      
+    <form action="/upload-silence" method="POST" enctype="multipart/form-data" id="upload-form" class="flex flex-col items-center space-y-4 w-full max-w-md">
+      <p><b>Bước 1:</b> Chọn file âm thanh (m4a, wav, mp3)</p>
+      <input type="file" name="audio_file" accept=".m4a,.wav,.mp3" class="block w-full text-sm text-gray-900" required>
+      
+      <p><b>Bước 2:</b> Nhấn nút <b>Chuyển thành văn bản</b> để tách và chuyển đổi</p>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Chuyển thành văn bản</button>
+    </form>
+
+    <div class="progress" id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div id="message"></div>
+    <a id="result-link" class="mt-6 text-green-600 hover:underline" href="#" download>Download file kết quả</a>
+
+    <a href="#" class="mt-6 text-dark-600 hover:underline" onclick="location.reload();">Thử lại</a>
+    <div>
+        <p>Trang này sử dụng kỹ thuật cắt file audio gốc thành từng file nhỏ theo từng khoảng im lặng, sau đó gửi lên API để xử lý âm thanh, và cuối cùng hoàn chỉnh thành file text. <b>Do đó, trang này khuyến nghị file audio có nhiều khoảng im lặng</b></p>
+    </div>
+</div>
+
+    
+
+  <!-- JavaScript -->
+  <script>
+    const form = document.getElementById("upload-form");
+    const progressContainer = document.getElementById("progress-container");
+    const progressBar = document.getElementById("progress-bar");
+    const message = document.getElementById("message");
+    const resultLink = document.getElementById("result-link");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const fileInput = form.querySelector("input[type='file']");
+      const file = fileInput.files[0];
+
+      const formData = new FormData();
+      formData.append("audio_file", file);
+
+      progressContainer.style.display = "block";
+      progressBar.style.width = "30%";
+      message.textContent = "Đang xử lý theo khoảng lặng...";
+
+      fetch("/upload-silence", {
+        method: "POST",
+        body: formData,
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          progressBar.style.width = "100%";
+          message.textContent = "Hoàn tất!";
+          resultLink.href = data.download_url;
+          resultLink.style.display = "inline-block";
+        } else {
+          message.textContent = data.message || "Đã có lỗi xảy ra!";
+        }
+      })
+      .catch(() => {
+        message.textContent = "Lỗi kết nối!";
+      });
+    });
+  </script>
+</body>
+</html>

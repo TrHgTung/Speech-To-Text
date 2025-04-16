@@ -6,7 +6,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <nav class="bg-gray-800">
+  <nav class="sticky top-0 z-50 bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -29,6 +29,7 @@
             <div class="flex space-x-4">
               <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" >Speech-To-Text</a>
               <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên âm thanh</a>
+              <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh có nhiều khoảng lặng</a>
               <a href="/record" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Ghi âm trực tiếp</a>
               <a href="https://hoang-tung-site.vercel.app/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
             </div>
@@ -63,11 +64,6 @@
     <p id="timer" class="mb-2 text-lg">Thời gian ghi: 0s</p>
     <progress id="progressBar" value="0" max="60" class="w-80 h-3 mb-6"></progress>
 
-    <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/upload">
-      <input type="file" name="audio_file" id="audioInput" hidden>
-      <button type="submit" id="submitBtn" hidden>Gửi</button>
-    </form>
-
     <a href="#" class="mt-6 text-dark-600 hover:underline" onclick="location.reload();">Thử lại</button>
   </div>
   
@@ -89,10 +85,31 @@
         const blob = new Blob(audioChunks, { type: "audio/webm" });
         const file = new File([blob], "recording.webm");
 
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        document.getElementById("audioInput").files = dataTransfer.files;
-        document.getElementById("submitBtn").click();
+        const formData = new FormData();
+        formData.append("audio_file", file);
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Hiển thị nút tải xuống
+            const downloadLink = document.createElement("a");
+            downloadLink.href = data.download_url;
+            downloadLink.textContent = "⬇️ Tải kết quả xuống (.txt)";
+            downloadLink.className = "mt-6 text-blue-600 hover:underline block";
+            downloadLink.download = ""; // cho phép tải thẳng về
+            document.querySelector(".bg-gray-100").appendChild(downloadLink);
+          } else {
+            alert("Có lỗi xảy ra: " + data.message);
+          }
+        })
+        .catch(err => {
+          alert("Lỗi khi gửi file ghi âm: " + err);
+        });
+
       };
 
       mediaRecorder.start();
