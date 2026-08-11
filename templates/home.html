@@ -26,9 +26,9 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <a href="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Speech-To-Text</a>
-              <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh thông thường</a>
-              <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file âm thanh có nhiều khoảng lặng</a>
-              <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
+              <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file m4a thông thường</a>
+              <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file m4a có nhiều khoảng lặng</a>
+              <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp qua web</a>
               <a href="https://tungth.com/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
             </div>
           </div>
@@ -39,7 +39,8 @@
     <div class="sm:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <a href="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Speech-To-Text</a>
-              <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên âm thanh</a>
+              <a href="/upload" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file m4a thông thường</a>
+              <a href="/upload-silence" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tải lên file m4a có nhiều khoảng lặng</a>
               <a href="/record" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Ghi âm trực tiếp</a>
               <a href="https://tungth.com/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tác giả</a>
           </div>
@@ -51,14 +52,14 @@
     <h5>Hiện tại gồm các tính năng sau:</h5><br>
   
     <div class="space-y-4">
-      <a href="/record" class="block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">🎧 Ghi âm trực tiếp</a>
-      <a href="/upload" class="block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">📁 Tải lên file audio thông thường</a>
-      <a href="/upload-silence" class="block px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">📁 Tải lên file audio có nhiều khoảng im lặng</a>
+      <a href="/record" class="block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">🎧 Ghi âm trực tiếp qua web</a>
+      <a href="/upload" class="block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">📁 Tải lên file m4a thông thường (any files)</a>
+      <a href="/upload-silence" class="block px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">📁 Tải lên file m4a có nhiều khoảng im lặng (team content lọc)</a>
     </div>
 
     <div style="margin-top: 40px; margin-bottom: 30px;">
       <p>Sản phẩm được phát triển nhờ vào các thư viện Python: <a href="https://pypi.org/project/Flask/" target="_blank">Flask</a> và <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a> (dựng UI), <a href="https://pypi.org/project/pydub/" target="_blank">Pydub</a> và <a href="https://pypi.org/project/SpeechRecognition/" target="_blank">SpeechRecognition</a> (xử lí âm thanh)</p><br>
-      <p><strong>Mã nguồn và tác giả: </strong> <a href="https://blogsocial.io.vn/" target="_blank">Hoàng Tùng</a> <a href="https://github.com/trhgtung/speech-to-text">(TrHgTung)</a></p>
+      <p><strong><a href="https://github.com/TrHgTung/Speech-To-Text" target="_blank">Mã nguồn và tác giả</a></strong> </p>
     </div>
 </body>
 
